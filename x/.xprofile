@@ -1,0 +1,4 @@
+nitrogen --restore &
+nm-applet &
+kmix &
+dropbox &

@@ -1,0 +1,8 @@
+set visible-stats on
+
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+"\t": menu-complete
+
+Control-j: menu-complete
+Control-k: menu-complete-backward

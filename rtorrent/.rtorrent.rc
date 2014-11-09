@@ -1,0 +1,4 @@
+session = "~/.rtorrent-session"
+upload_rate = 1
+encryption = allow_incoming,try_outgoing,enable_retry
+check_hash = yes
