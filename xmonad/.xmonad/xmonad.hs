@@ -44,9 +44,15 @@ myConfig = ewmh $ pagerHints $ defaultConfig
     , ((mod4Mask, xK_Left), prevWS) -- go one workspace left
     ]
 
-myLayout = avoidStruts ( smartBorders ( tiledSpace ||| tiled ||| bigMonitor ||| Grid ||| simpleTabbed ) ) ||| noBorders (fullscreenFull Full)
+myLayout = avoidStruts ( smartBorders ( -- tiledSpace |||
+                                        tiled |||
+                                        bigMonitor |||
+                                        Grid |||
+                                        simpleTabbed
+                                      ) ) |||
+                         noBorders (fullscreenFull Full)
     where
-        tiled           = spacing 5 $ ResizableTall nmaster delta ratio []
+        tiled           = spacing 1 $ ResizableTall nmaster delta ratio []
         tiledSpace      = spacing 50 $ ResizableTall nmaster delta ratio []
         bigMonitor      = spacing 5 $ ThreeColMid nmaster delta ratio
         -- Default number of windows in master pane

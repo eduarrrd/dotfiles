@@ -30,7 +30,7 @@ myPagerConfig = defaultPagerConfig { activeWorkspace = wrap (colorize "red" "" "
                                    , activeWindow = escape . shorten 100
                                    , activeLayout = (\ x -> case x of
                                             "Spacing 50 ResizableTall" -> "\x22A2"
-                                            "Spacing 5 ResizableTall"  -> "\x22A2"
+                                            "Spacing 1 ResizableTall"  -> "\x22A2"
                                             "Spacing 5 ThreeCol"       -> "\x2AF4"
                                             "Grid"                     -> "\x2A69"
                                             "Tabbed Simplest"          -> "\x2AE7"
