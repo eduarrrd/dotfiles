@@ -52,12 +52,12 @@ myLayout = avoidStruts ( smartBorders ( -- tiledSpace |||
                                       ) ) |||
                          noBorders (fullscreenFull Full)
     where
-        tiled           = spacing 1 $ ResizableTall nmaster delta ratio []
-        tiledSpace      = spacing 50 $ ResizableTall nmaster delta ratio []
-        bigMonitor      = spacing 5 $ ThreeColMid nmaster delta ratio
+        tiled           = smartSpacing 1 $ ResizableTall nmaster delta ratio []
+        tiledSpace      = smartSpacing 50 $ ResizableTall nmaster delta ratio []
+        bigMonitor      = smartSpacing 5 $ ThreeColMid nmaster delta ratio
         -- Default number of windows in master pane
         nmaster         = 1
         -- Percent of the screen to increment when resizing
         delta           = 5/100
         -- Default proportion of the screen taken up by main pane
-        ratio           = toRational (2/(1 + sqrt 5 :: Double))
+        ratio           = 0.5 -- toRational (2/(1 + sqrt 5 :: Double))
