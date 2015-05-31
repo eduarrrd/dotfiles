@@ -88,3 +88,7 @@ fake_eth0() {
     local MAC="8e:68:e8:9b:94:b8"
     sudo sh -c "ip link add eth0 type dummy && ip link set dev eth0 addr $MAC"
 }
+alias u='nix-channel --update'
+alias uu='nix-env -u --dry-run'
+alias uuu='nix-env -u'
+alias uuuu='nix-env -u --leq'
