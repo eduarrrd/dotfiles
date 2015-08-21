@@ -1,7 +1,13 @@
 if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
     eval `dbus-launch --sh-syntax --exit-with-session`
 fi
+
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 nitrogen --restore &
 nm-applet &
 kmix &
 dropbox &
+xscreensaver -nosplash &
