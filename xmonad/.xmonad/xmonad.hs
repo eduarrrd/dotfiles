@@ -38,7 +38,7 @@ myConfig = ewmh $ pagerHints $ defaultConfig
     `additionalKeys`
     [ ((mod4Mask, xK_f), sendMessage (Toggle FULL) >> sendMessage ToggleStruts) -- toggle fullscreen
     , ((mod4Mask, xK_g), goToSelected defaultGSConfig) -- GridSelect
-    , ((mod4Mask, xK_Escape), spawn "slock")
+    , ((mod4Mask, xK_Escape), spawn "xdg-screensaver lock")
     , ((mod4Mask, xK_z), toggleWS) -- go to most recently viewed workspace
     , ((mod4Mask, xK_Right), nextWS) -- go one workspace right
     , ((mod4Mask, xK_Left), prevWS) -- go one workspace left
