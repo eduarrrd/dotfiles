@@ -30,6 +30,12 @@ set wildmode=list:longest,full
 
 "set background=dark
 
+" Remember last cursor position
+augroup resCur
+	autocmd!
+	autocmd BufReadPost * call setpos(".", getpos("'\""))
+augroup END
+
 set incsearch
 set hlsearch
 set ignorecase
