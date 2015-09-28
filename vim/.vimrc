@@ -36,6 +36,11 @@ augroup resCur
 	autocmd BufReadPost * call setpos(".", getpos("'\""))
 augroup END
 
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=100          " How many undos
+set undoreload=1000         " number of lines to save for undo
+
 set incsearch
 set hlsearch
 set ignorecase
