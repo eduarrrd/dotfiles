@@ -14,8 +14,7 @@ call vundle#end()
 filetype plugin indent on    " also required for Vundle
 syntax on
 
-" hide buffers instead of closing them
-set hidden
+set hidden                   " hide buffers instead of closing them
 set ttyfast
 set cursorline
 set splitbelow
@@ -61,12 +60,12 @@ set directory=~/.vim/swp//
 "set mouse=a
 
 " Unmap arrow keys to force hjkl
-map <Left> <Nop>
+map <Left>  <Nop>
 map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+map <Up>    <Nop>
+map <Down>  <Nop>
 
-set colorcolumn=80
+set colorcolumn=81
 
 " I hold shift a lot, make :W work like :w and :Q like :q
 cabbr W w
@@ -78,5 +77,4 @@ set modeline
 
 " control+p to toggle pasting
 set pastetoggle=<C-p>
-
-map <F9> :NERDTreeToggle<CR>
+set nopaste
