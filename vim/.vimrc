@@ -5,6 +5,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-sleuth'
 
