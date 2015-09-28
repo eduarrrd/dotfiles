@@ -1,6 +1,16 @@
 set nocompatible
 
-filetype plugin indent on
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-sleuth'
+
+call vundle#end()
+
+filetype plugin indent on    " also required for Vundle
 syntax on
 
 " hide buffers instead of closing them
