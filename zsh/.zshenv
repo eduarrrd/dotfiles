@@ -1,4 +1,6 @@
 #! /bin/sh
+export EDITOR=vim
+
 #export PATH="$HOME/.cabal/bin:$PATH"
 
 #export PATH="$HOME/.texlive/2013/bin/x86_64-linux:$PATH"

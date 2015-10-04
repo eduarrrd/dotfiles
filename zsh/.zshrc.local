@@ -1,0 +1,35 @@
+## get top 10 shell commands:
+alias top10='print -l ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
+
+# print hex value of a number
+hex() {
+    emulate -L zsh
+    if [[ -n "$1" ]]; then
+        printf "%x\n" $1
+    else
+        print 'Usage: hex <number-to-convert>'
+        return 1
+    fi
+}
+
+gdb_get_backtrace() {
+    local exe=$1
+    local core=$2
+
+    gdb ${exe} \
+        --core ${core} \
+        --batch \
+        --quiet \
+        -ex "thread apply all bt full" \
+        -ex "quit"
+}
+
+alias u='nix-channel --update'
+alias uu='nix-env -u --dry-run'
+alias uuu='nix-env -u'
+alias uuuu='nix-env -u --leq'
+
+bindkey "^[[5~" history-beginning-search-backward
+bindkey "^[[6~" history-beginning-search-forward
+
+bindkey '\eq' push-line-or-edit
