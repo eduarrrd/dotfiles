@@ -2,6 +2,10 @@
 	email = e.bachmakov@gmail.com
 	name = Eduard Bachmakov
 [color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
 	ui = true
 [credential]
 	helper = cache --timeout=1800
