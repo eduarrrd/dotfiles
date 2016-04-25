@@ -1,3 +1,6 @@
+import Control.Monad (when)
+import System.Exit (exitSuccess)
+
 import XMonad
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -5,12 +8,13 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 -- import XMonad.Hooks.FadeInactive
 
+import XMonad.Util.Dmenu (dmenu)
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
 
 import XMonad.Layout.Grid
 import XMonad.Layout.Spacing
-import XMonad.Layout.Fullscreen
+import XMonad.Layout.Fullscreen (fullscreenFull)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
@@ -21,7 +25,7 @@ import XMonad.Layout.MultiToggle.Instances
 import XMonad.Actions.GridSelect
 import XMonad.Actions.CycleWS
 
-import System.Taffybar.Hooks.PagerHints
+import System.Taffybar.Hooks.PagerHints (pagerHints)
 
 main = do
     safeSpawn "taffybar" []
@@ -29,7 +33,8 @@ main = do
 
 myConfig = ewmh $ pagerHints $ defaultConfig 
     { modMask = mod4Mask
-    , terminal = "konsole"
+    , terminal = "st"
+    , handleEventHook = fullscreenEventHook
     , manageHook = manageDocks <+> composeAll [ isFullscreen --> doFullFloat ]
     , layoutHook = myLayout
     , startupHook = setWMName "LG3D"
@@ -39,6 +44,7 @@ myConfig = ewmh $ pagerHints $ defaultConfig
     [ ((mod4Mask, xK_f), sendMessage (Toggle FULL) >> sendMessage ToggleStruts) -- toggle fullscreen
     , ((mod4Mask, xK_g), goToSelected defaultGSConfig) -- GridSelect
     , ((mod4Mask, xK_Escape), spawn "xdg-screensaver lock")
+    , ((mod4Mask .|. shiftMask, xK_q), quitWithWarning)
     , ((mod4Mask, xK_z), toggleWS) -- go to most recently viewed workspace
     , ((mod4Mask, xK_Right), nextWS) -- go one workspace right
     , ((mod4Mask, xK_Left), prevWS) -- go one workspace left
@@ -61,3 +67,9 @@ myLayout = avoidStruts ( smartBorders ( -- tiledSpace |||
         delta           = 5/100
         -- Default proportion of the screen taken up by main pane
         ratio           = 0.5 -- toRational (2/(1 + sqrt 5 :: Double))
+
+quitWithWarning :: X()
+quitWithWarning = do
+    let m = "confirm quit"
+    s <- dmenu [m]
+    when (m == s) (io exitSuccess)
