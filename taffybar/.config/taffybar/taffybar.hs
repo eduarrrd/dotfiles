@@ -1,48 +1,63 @@
 import System.Taffybar
-
-import System.Taffybar.Systray
-import System.Taffybar.Pager
-import System.Taffybar.TaffyPager
-import System.Taffybar.SimpleClock
--- import System.Taffybar.FreedesktopNotifications
 import System.Taffybar.Battery
-import System.Taffybar.NetMonitor
-import System.Taffybar.Weather
+-- import System.Taffybar.FreedesktopNotifications
 -- import System.Taffybar.MPRIS
-
+import System.Taffybar.NetMonitor
+import System.Taffybar.Pager
+import System.Taffybar.SimpleClock
+import System.Taffybar.Systray
+import System.Taffybar.TaffyPager
+import System.Taffybar.Weather
 import System.Taffybar.Widgets.PollingBar
 import System.Taffybar.Widgets.PollingGraph
 
-import System.Information.Memory
 import System.Information.CPU
+import System.Information.Memory
 
+import System.Directory (getDirectoryContents)
+import System.FilePath (takeBaseName)
+
+memCallback :: IO [Double]
 memCallback = do
   mi <- parseMeminfo
   return [memoryUsedRatio mi]
 
+cpuCallback :: IO [Double]
 cpuCallback = do
   (userLoad, systemLoad, totalLoad) <- cpuLoad
   return [totalLoad, systemLoad]
+
+listNetworkDevices :: IO [String]
+listNetworkDevices = fmap (map takeBaseName) $ getDirectoryContents "/sys/class/net/"
+
+filterOutLoopback :: [String] -> [String]
+filterOutLoopback = filter (\y -> not (elem y ["", ".", "lo"]))
+
+netDevList :: IO [String]
+netDevList = fmap filterOutLoopback listNetworkDevices
+
+symbolizeLayoutName :: String -> String
+symbolizeLayoutName layout =
+  case layout of
+    "SmartSpacing 50 ResizableTall" -> "\x22A2"
+    "SmartSpacing 1 ResizableTall"  -> "\x22A2"
+    "SmartSpacing 5 ThreeCol"       -> "\x2AF4"
+    "Grid"                          -> "\x2A69"
+    "Tabbed Simplest"               -> "\x2AE7"
+    "Full"                          -> "\x25FB"
+    _                               -> layout
 
 myPagerConfig = defaultPagerConfig { activeWorkspace = wrap (colorize "red" "" "\x2308") (colorize "green" "" "\x230B") . escape
                                    , visibleWorkspace = wrap (colorize "blue" "" "\x2308") (colorize "orange" "" "\x230B") . escape
                                    , emptyWorkspace = (\y -> "")
                                    , activeWindow = escape . shorten 100
-                                   , activeLayout = (\ x -> case x of
-                                            "SmartSpacing 50 ResizableTall" -> "\x22A2"
-                                            "SmartSpacing 1 ResizableTall"  -> "\x22A2"
-                                            "SmartSpacing 5 ThreeCol"       -> "\x2AF4"
-                                            "Grid"                     -> "\x2A69"
-                                            "Tabbed Simplest"          -> "\x2AE7"
-                                            "Full"                     -> "\x25FB"
-                                            _                          -> x
-                                            )
+                                   , activeLayout = symbolizeLayoutName
                                    , widgetSep = " "
                                    }
 
 main = do
-  let memCfg = defaultGraphConfig { graphDataColors = [(1, 0, 0, 1)] }
-      cpuCfg = defaultGraphConfig { graphDataColors = [ (0, 1, 0, 1)
+  let memCfg = defaultGraphConfig { graphDataColors = [ (1, 0, 0,   1) ] }
+      cpuCfg = defaultGraphConfig { graphDataColors = [ (0, 1, 0,   1)
                                                       , (1, 0, 1, 0.5)
                                                       ]
                                   }
@@ -52,10 +67,11 @@ main = do
 --    mpris = mprisNew defaultMPRISConfig
       mem = pollingGraphNew memCfg 1 memCallback
       cpu = pollingGraphNew cpuCfg 1 cpuCallback
-      net = netMonitorNew 1 "wlp2s0"
       bat = textBatteryNew "$percentage$% $time$" 1
       tray = systrayNew
 
+  nets <- fmap (fmap (netMonitorNew 1)) netDevList
+
   defaultTaffybar defaultTaffybarConfig { startWidgets = [ pager ]
-                                        , endWidgets = [ tray, clock, mem, cpu, net, bat ]
+                                        , endWidgets = [ tray, clock, mem, cpu] ++ nets ++ [ bat ]
                                         }
