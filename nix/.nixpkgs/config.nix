@@ -37,7 +37,7 @@
       };
       xmonadEnv = pkgs.myEnvFun {
           name = "xmonad";
-          buildInputs = with haskellPackages; [ xmonad xmonadContrib xmonadExtras taffybar ];
+          buildInputs = with haskellPackages; [ xmonad xmonad-contrib xmonad-extras taffybar ];
       };
     };
   }
