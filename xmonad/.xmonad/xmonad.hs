@@ -10,7 +10,7 @@ import XMonad.Hooks.SetWMName
 
 import XMonad.Util.Dmenu (dmenu)
 import XMonad.Util.EZConfig
-import XMonad.Util.Run
+import XMonad.Util.SpawnOnce (spawnOnce) -- xmonad-contrib
 
 import XMonad.Layout.Grid
 import XMonad.Layout.Spacing
@@ -27,9 +27,7 @@ import XMonad.Actions.CycleWS
 
 import System.Taffybar.Hooks.PagerHints (pagerHints)
 
-main = do
-    safeSpawn "taffybar" []
-    xmonad myConfig
+main = xmonad myConfig
 
 myConfig = ewmh $ pagerHints $ defaultConfig 
     { modMask = mod4Mask
@@ -37,7 +35,7 @@ myConfig = ewmh $ pagerHints $ defaultConfig
     , handleEventHook = fullscreenEventHook
     , manageHook = manageDocks <+> composeAll [ isFullscreen --> doFullFloat ]
     , layoutHook = myLayout
-    , startupHook = setWMName "LG3D"
+    , startupHook = setWMName "LG3D" <+> spawnOnce "taffybar"
     -- , logHook =  fadeInactiveLogHook 0.85
     }
     `additionalKeys`
