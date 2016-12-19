@@ -11,6 +11,10 @@
     };
 
     packageOverrides = pkgs : with pkgs; {
+      xmonad-with-packages = pkgs.xmonad-with-packages.override {
+        packages = self: [ self.xmonad-contrib self.xmonad-extras self.taffybar ];
+      };
+
       sdlEnv = pkgs.myEnvFun {
           name = "sdl";
           buildInputs = [ stdenv SDL2 glew pkgconfig cmake ];
