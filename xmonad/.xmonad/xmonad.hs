@@ -29,11 +29,11 @@ import System.Taffybar.Hooks.PagerHints (pagerHints)
 
 main = xmonad myConfig
 
-myConfig = ewmh $ pagerHints $ defaultConfig 
+myConfig = docks $ ewmh $ pagerHints $ defaultConfig
     { modMask = mod4Mask
     , terminal = "st"
     , handleEventHook = fullscreenEventHook
-    , manageHook = manageDocks <+> composeAll [ isFullscreen --> doFullFloat ]
+    , manageHook = composeAll [ isFullscreen --> doFullFloat ]
     , layoutHook = myLayout
     , startupHook = setWMName "LG3D" <+> spawnOnce "taffybar"
     -- , logHook =  fadeInactiveLogHook 0.85
