@@ -39,13 +39,12 @@ netDevList = fmap filterOutLoopback listNetworkDevices
 symbolizeLayoutName :: String -> String
 symbolizeLayoutName layout =
   case layout of
-    "SmartSpacing 50 ResizableTall" -> "\x22A2"
-    "SmartSpacing 1 ResizableTall"  -> "\x22A2"
-    "SmartSpacing 5 ThreeCol"       -> "\x2AF4"
-    "Grid"                          -> "\x2A69"
-    "Tabbed Simplest"               -> "\x2AE7"
-    "Full"                          -> "\x25FB"
-    _                               -> layout
+    "SmartSpacing 1 MouseResizableTile"  -> "\x22A2"
+    "SmartSpacing 5 ThreeCol"            -> "\x2AF4"
+    "Grid"                               -> "\x2A69"
+    "Tabbed Simplest"                    -> "\x2AE7"
+    "Full"                               -> "\x25FB"
+    _                                    -> layout
 
 myPagerConfig = defaultPagerConfig { activeWorkspace = wrap (colorize "red" "" "\x2308") (colorize "green" "" "\x230B") . escape
                                    , visibleWorkspace = wrap (colorize "blue" "" "\x2308") (colorize "orange" "" "\x230B") . escape

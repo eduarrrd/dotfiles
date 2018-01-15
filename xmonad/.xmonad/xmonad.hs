@@ -17,7 +17,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.Fullscreen (fullscreenFull)
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
-import XMonad.Layout.ResizableTile
+import XMonad.Layout.MouseResizableTile
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
@@ -49,16 +49,14 @@ myConfig = docks $ ewmh $ pagerHints $ defaultConfig
     , ((mod4Mask, xK_Left), prevWS) -- go one workspace left
     ]
 
-myLayout = avoidStruts ( smartBorders ( -- tiledSpace |||
-                                        tiled |||
+myLayout = avoidStruts ( smartBorders ( tiled |||
                                         bigMonitor |||
                                         Grid |||
                                         simpleTabbed
                                       ) ) |||
                          noBorders (fullscreenFull Full)
     where
-        tiled           = smartSpacing 1 $ ResizableTall nmaster delta ratio []
-        tiledSpace      = smartSpacing 50 $ ResizableTall nmaster delta ratio []
+        tiled           = smartSpacing 1 $ mouseResizableTile -- nmaster delta ratio []
         bigMonitor      = smartSpacing 5 $ ThreeColMid nmaster delta ratio
         -- Default number of windows in master pane
         nmaster         = 1
