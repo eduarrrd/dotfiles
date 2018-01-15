@@ -47,6 +47,8 @@ myConfig = docks $ ewmh $ pagerHints $ defaultConfig
     , ((mod4Mask, xK_z), toggleWS) -- go to most recently viewed workspace
     , ((mod4Mask, xK_Right), nextWS) -- go one workspace right
     , ((mod4Mask, xK_Left), prevWS) -- go one workspace left
+    , ((mod4Mask, xK_u), sendMessage ShrinkSlave) -- %! Shrink a slave area
+    , ((mod4Mask, xK_i), sendMessage ExpandSlave) -- %! Expand a slave area
     ]
 
 myLayout = avoidStruts ( smartBorders ( tiled |||
