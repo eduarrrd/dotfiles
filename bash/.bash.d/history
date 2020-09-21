@@ -1,0 +1,4 @@
+HISTTIMEFORMAT="%F %T: "
+HISTSIZE=-1
+HISTCONTROL="ignoreboth"
+HISTIGNORE="history:fc*"
