@@ -1,0 +1,8 @@
+alias l='ls -CF'
+alias ll='ls -l'
+alias la='ls -la'
+
+# colorization
+alias ip='ip -color=auto'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
