@@ -6,3 +6,12 @@ alias la='ls -la'
 alias ip='ip -color=auto'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
+
+# human readable numbers
+alias du='du -h'
+alias df='df -h'
+
+# try to resume if possible
+alias wget='wget -c'
+
+alias ipmon='ip -ts monitor label'
