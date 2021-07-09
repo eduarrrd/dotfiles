@@ -1,0 +1,29 @@
+function nonzero_return() { RETVAL=$?; [ $RETVAL -ne 0 ] && echo "$RETVAL "; }
+
+# visualize current status of git repo
+function parse_git_dirty {
+    status=`git --no-optional-locks status 2>&1`
+    [[ ${status} =~ renamed: ]] && bits=">${bits}"
+    [[ ${status} =~ Your\ branch\ is\ ahead\ of ]] && bits="*${bits}"
+    [[ ${status} =~ new\ file: ]] && bits="+${bits}"
+    [[ ${status} =~ Untracked\ files ]] && bits="?${bits}"
+    [[ ${status} =~ deleted: ]] && bits="x${bits}"
+    [[ ${status} =~ modified: ]] && bits="!${bits}"
+    [ ! "${bits}" == "" ] && echo " ${bits}"
+}
+
+# get current branch+status in git repo
+function parse_git_branch() {
+    BRANCH=`git branch --show-current 2> /dev/null`
+    if [ $? == 0 ]
+    then
+        STAT=`parse_git_dirty`
+        echo "[@${BRANCH}${STAT}]"
+    fi
+}
+
+# Visual (error code 0): 
+#   ╭[12:34]─[user@host] ~[@master !]
+#   ╰$
+#
+export PS1="\n╭\[\e[31m\]\`nonzero_return\`\[\e[m\][\A]─[\[\e[34m\]\u\[\e[m\]@\h] \[\e[37m\]\w\[\e[m\]\`parse_git_branch\`\\n╰\$ "
