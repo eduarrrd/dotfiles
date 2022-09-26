@@ -12,8 +12,9 @@ set show-all-if-unmodified On
 set visible-stats On
 
 # Cycle though completions
-Control-j: menu-complete
-Control-k: menu-complete-backward
+# ... lowercase blocked by https://bugs.kde.org/show_bug.cgi?id=439196
+Control-J: menu-complete
+Control-K: menu-complete-backward
 
 # C-n and C-p complete words using previously-typed words (like in vim):
 Control-n: dabbrev-expand
