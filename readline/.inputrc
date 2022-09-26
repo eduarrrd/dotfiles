@@ -26,3 +26,8 @@ Control-p: "\e-\C-n"
 
 # Alt-s prefixes "sudo "
 "\es": "\C-asudo \C-e"
+
+$if Bash
+    # Perform history expansion on the current line and insert a space
+    Space: magic-space
+$endif
