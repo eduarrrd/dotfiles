@@ -15,3 +15,5 @@ alias df='df -h'
 alias wget='wget -c'
 
 alias ipmon='ip -ts monitor label'
+
+command -v git &> /dev/null && alias diff='git diff --color-moved=dimmed-zebra --color-moved-ws=allow-indentation-change'
