@@ -10,6 +10,7 @@ set mark-symlinked-directories On
 set show-all-if-ambiguous On
 set show-all-if-unmodified On
 set visible-stats On
+set history-preserve-point On
 
 # Cycle though completions
 # ... lowercase blocked by https://bugs.kde.org/show_bug.cgi?id=439196
