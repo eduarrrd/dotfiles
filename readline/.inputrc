@@ -16,6 +16,10 @@ set visible-stats On
 Control-J: menu-complete
 Control-K: menu-complete-backward
 
+# PgUp/PgDn for history incremental complete
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+
 # C-n and C-p complete words using previously-typed words (like in vim):
 Control-n: dabbrev-expand
 Control-p: "\e-\C-n"
